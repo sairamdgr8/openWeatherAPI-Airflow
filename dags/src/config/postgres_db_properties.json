@@ -1,0 +1,7 @@
+{
+    "dbname": "saidb",
+    "user": "postgres",
+    "password": "admin",
+    "host": "host.docker.internal",
+    "port": "5432"
+}
