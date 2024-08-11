@@ -29,14 +29,19 @@ dag = DAG(
     schedule_interval='30 21 * * *' # every day 21:30 HH:MM
 )
 
-t1 = BashOperator( task_id='get_weather_api_code',
+t1 = BashOperator(
+    task_id='start',
+    bash_command='echo "***************  code start   **************"',
+    dag=dag)
+
+t2 = BashOperator( task_id='get_weather_api_code',
                     bash_command=f'python {path}/dags/src/openApiWeather.py',
                     dag=dag)
                     
-t2 = BashOperator(
-    task_id='task_2',
+t3 = BashOperator(
+    task_id='end',
     bash_command='echo "***************  code end   **************"',
     dag=dag)
     
     
-t2.set_upstream(t1)
+t1>> t2>>t3
